@@ -1,0 +1,51 @@
+{
+  "Version": "2012-10-17",
+  "Id": "kms-key-policy",
+  "Statement": [
+    {
+      "Sid": "Enable IAM User Permissions",
+      "Effect": "Allow",
+      "Principal": {"AWS": "arn:aws:iam::${account_id}:root"},
+      "Action": "kms:*",
+      "Resource": "*"
+    },
+    {
+        "Sid": "Allow administration of the key",
+        "Effect": "Allow",
+        "Principal": { "AWS": "arn:aws:iam::${account_id}:user/doubledigit" },
+        "Action": [
+            "kms:Create*",
+            "kms:Describe*",
+            "kms:Enable*",
+            "kms:List*",
+            "kms:Put*",
+            "kms:Update*",
+            "kms:Revoke*",
+            "kms:Disable*",
+            "kms:Get*",
+            "kms:Delete*",
+            "kms:ScheduleKeyDeletion",
+            "kms:CancelKeyDeletion"
+         ],
+         "Resource": "*"
+      },
+      {
+        "Sid": "Allow use of the key",
+        "Effect": "Allow",
+        "Principal": [
+            "${emr_service_role}",
+            "${rsvp_ec2_processor_role}",
+            "arn:aws:iam::${account_id}:user/doubledigit"
+        ],
+        "Action": [
+            "kms:DescribeKey",
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:ReEncrypt*",
+            "kms:GenerateDataKey",
+            "kms:GenerateDataKeyWithoutPlaintext"
+        ],
+        "Resource": "*"
+        }
+  ]
+}
