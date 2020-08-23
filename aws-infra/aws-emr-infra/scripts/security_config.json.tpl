@@ -9,7 +9,7 @@
         "AwsKmsKey": "${kms_key_id}"
       }
     },
-    "EnableInTransitEncryption": true,
+    "EnableInTransitEncryption": false,
     "EnableAtRestEncryption": true
   }
 }

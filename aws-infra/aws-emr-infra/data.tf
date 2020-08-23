@@ -5,7 +5,7 @@ data "terraform_remote_state" "vpc" {
   backend = "s3"
 
   config = {
-    profile = "doubledigit"
+    profile = "admin"
     bucket  = "${var.s3_bucket_prefix}-${var.environment}-${var.default_region}"
     key     = "state/${var.environment}/vpc/terraform.tfstate"
     region  = var.default_region
@@ -19,22 +19,22 @@ data "terraform_remote_state" "backend" {
   backend = "s3"
 
   config = {
-    profile = "doubledigit"
+    profile = "admin"
     bucket  = "${var.s3_bucket_prefix}-${var.environment}-${var.default_region}"
-    key     = "state/${var.environment}/aws/terraform.tfstate"
+    key     = "state/${var.environment}/backend/terraform.tfstate"
     region  = var.default_region
   }
 }
 
-data "template_file" "kms_policy" {
-  template = file("${path.module}/scripts/kms_policy.json.tpl")
-
-  vars = {
-    account_id = data.aws_caller_identity.current.id
-    emr_service_role = aws_iam_role.emr_rsvp_processor_service_role.arn
-    rsvp_ec2_processor_role = aws_iam_role.emr_rsvp_processor_ec2_role.arn
-  }
-}
+//data "template_file" "kms_policy" {
+//  template = file("${path.module}/scripts/kms_policy.json")
+//
+//  vars = {
+//    account_id = data.aws_caller_identity.current.id
+//    emr_service_role = aws_iam_role.emr_rsvp_processor_service_role.arn
+//    rsvp_ec2_processor_role = aws_iam_role.emr_rsvp_processor_ec2_role.arn
+//  }
+//}
 
 data "template_file" "security_configuration" {
   template = file("${path.module}/scripts/security_config.json.tpl")

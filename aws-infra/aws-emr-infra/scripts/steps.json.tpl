@@ -46,17 +46,15 @@
   },
   {
       "action_on_failure" : "TERMINATE_CLUSTER",
-      "name"              : "${s3_distCp_step}",
+      "name"              : "s3_distCp_step",
       "hadoop_jar_step" : {
         "jar" : "command-runner.jar",
         "args" : [
           "s3-dist-cp",
           "--src",
-          "hdfs:///temp/rsvp-data",
+          "hdfs:///temp/data/output/processed-data",
           "--dest",
-          "s3://teamconcept-tfstate-deploy/rsvp/processed-data",
-          "--groupBy",
-          ".*/temp/dsr-flat-csv/([a-z0-9]{11})/([a-z0-9]{7})/([a-z]{4}-[a-z]{3}-[a-z0-9]{7}-[a-z0-9]{11})/.*",
+          "s3://doubledigit-tfstate-deploy/rsvp/processed-data",
           "--targetSize",
           "1024",
           "--s3ServerSideEncryption",

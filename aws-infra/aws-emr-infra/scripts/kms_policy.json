@@ -12,7 +12,7 @@
     {
         "Sid": "Allow administration of the key",
         "Effect": "Allow",
-        "Principal": { "AWS": "arn:aws:iam::${account_id}:user/doubledigit" },
+        "Principal": { "AWS": "arn:aws:iam::${account_id}:user/eks-user" },
         "Action": [
             "kms:Create*",
             "kms:Describe*",
@@ -32,11 +32,13 @@
       {
         "Sid": "Allow use of the key",
         "Effect": "Allow",
-        "Principal": [
+        "Principal": {
+          "AWS": [
             "${emr_service_role}",
             "${rsvp_ec2_processor_role}",
-            "arn:aws:iam::${account_id}:user/doubledigit"
-        ],
+            "arn:aws:iam::${account_id}:user/eks-user"
+          ]
+        },
         "Action": [
             "kms:DescribeKey",
             "kms:Encrypt",
@@ -46,6 +48,21 @@
             "kms:GenerateDataKeyWithoutPlaintext"
         ],
         "Resource": "*"
-        }
+      },
+    {
+      "Sid": "Allow attachment of persistent resources",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::${account_id}:user/eks-user"
+        ]
+      },
+      "Action": [
+        "kms:CreateGrant",
+        "kms:ListGrants",
+        "kms:RevokeGrant"
+      ],
+      "Resource": "*"
+    }
   ]
 }
