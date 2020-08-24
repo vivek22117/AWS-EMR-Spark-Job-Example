@@ -1,0 +1,63 @@
+{
+  "Configurations": [
+    {
+      "Classification": "spark-defaults",
+      "ConfigurationProperties": {
+        "spark.dynamicAllocation.enabled": "false",
+        "spark.executor.instances": "5",
+        "spark.memory.fraction": "0.80",
+        "spark.memory.storageFraction": "0.30",
+        "spark.executor.extraJavaOptions": "-XX:+UseG1GC -XX:+UnlockDiagnosticVMOptions -XX:+G1SummarizeConcMark -XX:InitiatingHeapOccupancyPercent=35 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:OnOutOfMemoryError='kill -9 %p'",
+        "spark.driver.extraJavaOptions": "-XX:+UseG1GC -XX:+UnlockDiagnosticVMOptions -XX:+G1SummarizeConcMark -XX:InitiatingHeapOccupancyPercent=35 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:OnOutOfMemoryError='kill -9 %p'",
+        "spark.storage.level": "MEMORY_AND_DISK_SER",
+        "spark.rdd.compress": "true",
+        "spark.shuffle.compress": "true",
+        "spark.shuffle.spill.compress": "true"
+      }
+    },
+    {
+      "Classification": "mapred-site",
+      "ConfigurationProperties": {
+        "mapreduce.map.output.compress": "true"
+      }
+    },
+    {
+      "Classification": "spark",
+      "ConfigurationProperties": {
+        "maximizeResourceAllocation": "false",
+        "spark.dynamicAllocation.enabled": "false",
+        "spark.sql.shuffle.partitions": "44",
+        "spark.yarn.executor.memoryOverhead": "1098m",
+        "spark.default.parallelism": "30",
+        "spark.yarn.driver.memoryOverhead": "2261m",
+        "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version": 2,
+        "spark.speculation": false
+      }
+    },
+    {
+      "Classification": "yarn-env",
+      "ConfigurationProperties": {
+      },
+      "Configurations": [
+        {
+          "Classification": "export",
+          "ConfigurationProperties": {
+            "environment": "qa"
+          }
+        }
+      ]
+    },
+    {
+      "Classification": "emrfs-site",
+      "ConfigurationProperties": {
+        "fs.s3a.enableServerSideEncryption": "true"
+      }
+    },
+    {
+      "Classification": "core-site",
+      "ConfigurationProperties": {
+        "fs.s3a.server-side-encryption-algorithm": "AES256"
+      }
+    }
+  ]
+}

@@ -36,11 +36,28 @@ data "terraform_remote_state" "backend" {
 //  }
 //}
 
+data "template_file" "emr_service_policy" {
+  template = file("${path.module}/scripts/emr_service_policy.json")
+
+  vars = {
+    emr_kms_arn = aws_kms_key.emr_encryption_key.arn
+  }
+}
+
+data "template_file" "emr_ec2_policy" {
+  template = file("${path.module}/scripts/emr_ec2_access_policy.json")
+
+  vars = {
+    emr_kms_arn = aws_kms_key.emr_encryption_key.arn
+  }
+}
+
+
 data "template_file" "security_configuration" {
   template = file("${path.module}/scripts/security_config.json.tpl")
 
   vars = {
-    kms_key_id = aws_kms_key.emr_encryption_key.key_id
+    kms_key_id = aws_kms_key.emr_encryption_key.arn
   }
 }
 

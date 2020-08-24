@@ -10,6 +10,6 @@
       }
     },
     "EnableInTransitEncryption": false,
-    "EnableAtRestEncryption": true
+    "EnableAtRestEncryption": false
   }
 }
