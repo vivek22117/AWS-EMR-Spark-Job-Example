@@ -66,7 +66,7 @@
         "yarn.nodemanager.vmem-check-enabled":"false",
         "yarn.nodemanager.pmem-check-enabled":"false",
         "yarn.nodemanager.resource.memory-mb": "21500",
-        "yarn.scheduler.maximum-allocation-vcores": "12"
+        "yarn.scheduler.maximum-allocation-vcores": "8"
      }
   }
 ]

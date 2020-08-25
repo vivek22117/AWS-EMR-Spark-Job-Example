@@ -7,9 +7,13 @@
       "Action": [
         "cloudwatch:*",
         "dynamodb:*",
-        "sns:*",
-        "s3:*",
         "ec2:Describe*",
+        "elasticmapreduce:Describe*",
+        "elasticmapreduce:ListBootstrapActions",
+        "elasticmapreduce:ListClusters",
+        "elasticmapreduce:ListInstanceGroups",
+        "elasticmapreduce:ListInstances",
+        "elasticmapreduce:ListSteps",
         "kinesis:CreateStream",
         "kinesis:DeleteStream",
         "kinesis:DescribeStream",
@@ -18,12 +22,35 @@
         "kinesis:MergeShards",
         "kinesis:PutRecord",
         "kinesis:SplitShard",
-        "elasticmapreduce:Describe*",
-        "elasticmapreduce:ListBootstrapActions",
-        "elasticmapreduce:ListClusters",
-        "elasticmapreduce:ListInstanceGroups",
-        "elasticmapreduce:ListInstances",
-        "elasticmapreduce:ListSteps"
+        "rds:Describe*",
+        "s3:*",
+        "sdb:*",
+        "sns:*",
+        "sqs:*",
+        "glue:CreateDatabase",
+        "glue:UpdateDatabase",
+        "glue:DeleteDatabase",
+        "glue:GetDatabase",
+        "glue:GetDatabases",
+        "glue:CreateTable",
+        "glue:UpdateTable",
+        "glue:DeleteTable",
+        "glue:GetTable",
+        "glue:GetTables",
+        "glue:GetTableVersions",
+        "glue:CreatePartition",
+        "glue:BatchCreatePartition",
+        "glue:UpdatePartition",
+        "glue:DeletePartition",
+        "glue:BatchDeletePartition",
+        "glue:GetPartition",
+        "glue:GetPartitions",
+        "glue:BatchGetPartition",
+        "glue:CreateUserDefinedFunction",
+        "glue:UpdateUserDefinedFunction",
+        "glue:DeleteUserDefinedFunction",
+        "glue:GetUserDefinedFunction",
+        "glue:GetUserDefinedFunctions"
       ]
     },
     {
@@ -39,20 +66,6 @@
         "s3:PutObjectTagging",
         "s3:HeadBucket",
         "s3:DeleteObject"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Resource": "*",
-      "Action": [
-        "sqs:CreateQueue",
-        "sqs:DeleteQueue",
-        "sqs:DeleteMessage",
-        "sqs:DeleteMessageBatch",
-        "sqs:GetQueueAttributes",
-        "sqs:GetQueueUrl",
-        "sqs:PurgeQueue",
-        "sqs:ReceiveMessage"
       ]
     },
     {

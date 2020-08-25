@@ -56,6 +56,7 @@ resource "aws_security_group_rule" "allow_all_ports_from_slave_sg_for_icmp" {
   source_security_group_id = aws_security_group.nodes_sg.id
 }
 
+
 ###===============Specify custom managed security groups to restrict cross-cluster access====####
 resource "aws_security_group_rule" "allow_all_ports_from_driver_sg_for_tcp" {
   type                     = "ingress"

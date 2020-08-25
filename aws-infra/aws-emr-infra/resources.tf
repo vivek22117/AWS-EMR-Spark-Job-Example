@@ -44,7 +44,7 @@ resource "aws_emr_cluster" "cluster" {
 
   master_instance_group {
     instance_type = var.master_instance_type
-    bid_price     = var.bid_price
+//    bid_price     = var.bid_price
     ebs_config {
       size = var.master_ebs_volume_size
       type = var.master_volume_type
@@ -54,7 +54,7 @@ resource "aws_emr_cluster" "cluster" {
   core_instance_group {
     instance_type  = var.core_instance_type
     instance_count = var.core_instance_count
-    bid_price      = var.bid_price
+//    bid_price      = var.bid_price
 
     ebs_config {
       size                 = var.ebs_volume_size
@@ -78,6 +78,7 @@ resource "aws_emr_cluster" "cluster" {
   service_role           = aws_iam_role.emr_rsvp_processor_service_role.arn
   security_configuration = aws_emr_security_configuration.security_configuration.name
   configurations         = data.template_file.configuration.rendered
+//  configurations_json = data.template_file.configuration.rendered
 
   step_concurrency_level = 1
 
