@@ -44,6 +44,8 @@ public class PropertyLoader implements Serializable {
     private Map<String, String> loadAllProperties() {
         propertiesMap = new HashMap<>();
         String environment = System.getenv(ENVIRONMENT);
+        LOGGER.debug("Environment fetched: " + environment);
+
         if (environment != null) {
             environment = "-" + environment;
             propertiesMap.putAll(loadProperties(PREFIX + environment + SUFFIX));

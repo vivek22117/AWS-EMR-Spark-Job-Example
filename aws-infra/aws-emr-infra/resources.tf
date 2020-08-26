@@ -31,7 +31,7 @@ resource "aws_emr_cluster" "cluster" {
   termination_protection            = false
   keep_job_flow_alive_when_no_steps = true
   visible_to_all_users = var.enable_visibility
-//  custom_ami_id = "ami-08a71a5711a9e27e8"
+  custom_ami_id = data.aws_ami.emr.id
 
   ec2_attributes {
     subnet_id                         = data.terraform_remote_state.vpc.outputs.private_subnets[1]
@@ -44,7 +44,7 @@ resource "aws_emr_cluster" "cluster" {
 
   master_instance_group {
     instance_type = var.master_instance_type
-//    bid_price     = var.bid_price
+    bid_price     = var.bid_price
     ebs_config {
       size = var.master_ebs_volume_size
       type = var.master_volume_type
@@ -54,7 +54,7 @@ resource "aws_emr_cluster" "cluster" {
   core_instance_group {
     instance_type  = var.core_instance_type
     instance_count = var.core_instance_count
-//    bid_price      = var.bid_price
+    bid_price      = var.bid_price
 
     ebs_config {
       size                 = var.ebs_volume_size
