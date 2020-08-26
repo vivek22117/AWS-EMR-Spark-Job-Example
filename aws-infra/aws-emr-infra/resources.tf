@@ -63,10 +63,10 @@ resource "aws_emr_cluster" "cluster" {
     }
   }
 
-  bootstrap_action {
+/*  bootstrap_action {
     path = "s3://doubledigit-aritifactory-qa-us-east-1/bootstrap-actions/setup-config.sh"
     name = "setup-config.sh"
-  }
+  }*/
 
   tags = {
     Name        = "${var.cluster_name}-${var.environment}"

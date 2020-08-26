@@ -29,7 +29,7 @@ public class SharedSparkSession {
                 builder.config(entry.getKey(), entry.getValue());
             }
         }
-        return builder.master("local[6]").getOrCreate();
+        return builder.getOrCreate();
     }
 
     public static SQLContext createSqlContext(SparkSession sparkSession) throws ApplicationException {
