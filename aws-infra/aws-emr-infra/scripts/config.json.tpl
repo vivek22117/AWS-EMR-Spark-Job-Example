@@ -1,8 +1,8 @@
 [
   {
     "Classification": "spark-defaults",
-    "ConfigurationProperties": {
-      "spark.dynamicAllocation.enabled": ${enable_dynamic_allocation}",
+    "Properties": {
+      "spark.dynamicAllocation.enabled": "${enable_dynamic_allocation}",
       "spark.executor.instances": "${num_exec_instances}",
       "spark.memory.fraction": "${spark_mem_frac}",
       "spark.memory.storageFraction": "${spark_storage_mem_frac}",
@@ -18,21 +18,21 @@
   },
   {
     "Classification": "mapred-site",
-    "ConfigurationProperties": {
+    "Properties": {
       "mapreduce.map.output.compress": "${compression_enabled}"
     }
   },
   {
     "Classification": "spark",
-    "ConfigurationProperties": {
+    "Properties": {
       "maximizeResourceAllocation": "${enable_max_resource_alloc}",
       "spark.dynamicAllocation.enabled": "${enable_dynamic_alloc}",
       "spark.sql.shuffle.partitions": "${spark_shuffle_partitions}",
       "spark.yarn.executor.memoryOverhead": "${yarn_exec_memory_overhead}",
       "spark.default.parallelism": "${spark_parallelism}",
       "spark.yarn.driver.memoryOverhead": "${yarn_driver_memory_overhead}",
-      "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version": 2,
-      "spark.speculation": false
+      "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version": "2",
+      "spark.speculation": "false"
     }
   },
   {
@@ -42,7 +42,7 @@
     "Configurations": [
       {
         "Classification": "export",
-        "ConfigurationProperties": {
+        "Properties": {
           "environment": "${environment}"
         }
       }
@@ -50,19 +50,19 @@
   },
   {
     "Classification": "emrfs-site",
-    "ConfigurationProperties": {
-      "fs.s3a.enableServerSideEncryption": "${enable_s3_sse}"
+    "Properties": {
+      "fs.s3.enableServerSideEncryption": "${enable_s3_sse}"
     }
   },
   {
     "Classification": "core-site",
-    "ConfigurationProperties": {
+    "Properties": {
       "fs.s3a.server-side-encryption-algorithm": "AES256"
     }
   },
   {
       "Classification": "yarn-site",
-      "ConfigurationProperties": {
+      "Properties": {
         "yarn.nodemanager.vmem-check-enabled":"false",
         "yarn.nodemanager.pmem-check-enabled":"false",
         "yarn.nodemanager.resource.memory-mb": "21500",

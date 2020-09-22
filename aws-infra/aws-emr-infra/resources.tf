@@ -31,7 +31,7 @@ resource "aws_emr_cluster" "cluster" {
   termination_protection            = false
   keep_job_flow_alive_when_no_steps = true
   visible_to_all_users = var.enable_visibility
-//  custom_ami_id = data.aws_ami.emr.id
+  custom_ami_id = data.aws_ami.emr.id
 
   ec2_attributes {
     subnet_id                         = data.terraform_remote_state.vpc.outputs.private_subnets[1]
@@ -78,7 +78,7 @@ resource "aws_emr_cluster" "cluster" {
   service_role           = aws_iam_role.emr_rsvp_processor_service_role.arn
   security_configuration = aws_emr_security_configuration.security_configuration.name
 //  configurations         = data.template_file.configuration.rendered
-  configurations_json = data.template_file.configuration.rendered
+
 
   step_concurrency_level = 1
 
@@ -97,4 +97,29 @@ resource "aws_emr_cluster" "cluster" {
       }
     }
   }
+
+  configurations_json = templatefile("${path.module}/scripts/config.json.tpl", {
+
+    enable_dynamic_allocation = var.enable_dynamic_allocation
+    num_exec_instances        = var.num_exec_instances
+    spark_mem_frac            = var.spark_mem_frac
+    spark_storage_mem_frac    = var.spark_storage_mem_frac
+    exec_java_opts            = var.exec_java_opts
+    driver_java_opts          = var.driver_java_opts
+    spark_storage_level       = var.spark_storage_level
+    compression_enabled       = var.compression_enabled
+    distinct_enabled          = var.distinct_enabled
+    dynamic_partition_enabled = var.dynamic_partition_enabled
+
+    enable_max_resource_alloc   = var.enable_max_resource_alloc
+    enable_dynamic_alloc        = var.enable_dynamic_alloc
+    spark_shuffle_partitions    = var.spark_shuffle_partitions
+    yarn_exec_memory_overhead   = var.yarn_exec_memory_overhead
+    spark_parallelism           = var.spark_parallelism
+    yarn_driver_memory_overhead = var.yarn_driver_memory_overhead
+
+    environment = var.environment
+
+    enable_s3_sse = var.enable_s3_sse
+  })
 }

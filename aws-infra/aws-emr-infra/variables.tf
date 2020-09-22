@@ -133,7 +133,7 @@ variable "enable_dynamic_allocation" {
 }
 
 variable "num_exec_instances" {
-  type        = number
+  type        = string
   description = "Number of executor instances"
 }
 
@@ -179,7 +179,7 @@ variable "enable_dynamic_alloc" {
 }
 
 variable "spark_shuffle_partitions" {
-  type        = number
+  type        = string
   description = "Number of partition at the time of shuffling"
 }
 
@@ -189,7 +189,7 @@ variable "yarn_exec_memory_overhead" {
 }
 
 variable "spark_parallelism" {
-  type        = number
+  type        = string
   description = "Default parallelism for spark processing"
 }
 
@@ -204,12 +204,12 @@ variable "enable_s3_sse" {
 }
 
 variable "dynamic_partition_enabled" {
-  type = bool
+  type = string
   description = "Dynamic partition pruning improves job performance by selecting specific partitions"
 }
 
 variable "distinct_enabled" {
-  type = bool
+  type = string
   description = "This optimization eliminates duplicate values in each collection before computing the intersection"
 }
 
@@ -225,7 +225,7 @@ variable "driver_cores" {
 }
 
 variable "num_executors" {
-  type = number
+  type = string
   description = "Number of executors created using core instances"
 }
 
@@ -235,7 +235,7 @@ variable "executor_memory" {
 }
 
 variable "executor_cores" {
-  type = number
+  type = string
   description = "Number of cores in each executor"
 }
 
