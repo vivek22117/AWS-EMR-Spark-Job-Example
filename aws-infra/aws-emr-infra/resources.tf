@@ -77,8 +77,8 @@ resource "aws_emr_cluster" "cluster" {
 
   service_role           = aws_iam_role.emr_rsvp_processor_service_role.arn
   security_configuration = aws_emr_security_configuration.security_configuration.name
-  configurations         = data.template_file.configuration.rendered
-//  configurations_json = data.template_file.configuration.rendered
+//  configurations         = data.template_file.configuration.rendered
+  configurations_json = data.template_file.configuration.rendered
 
   step_concurrency_level = 1
 
