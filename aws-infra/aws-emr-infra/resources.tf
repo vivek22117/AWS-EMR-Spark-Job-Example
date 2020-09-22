@@ -31,7 +31,7 @@ resource "aws_emr_cluster" "cluster" {
   termination_protection            = false
   keep_job_flow_alive_when_no_steps = true
   visible_to_all_users = var.enable_visibility
-  custom_ami_id = data.aws_ami.emr.id
+//  custom_ami_id = data.aws_ami.emr.id
 
   ec2_attributes {
     subnet_id                         = data.terraform_remote_state.vpc.outputs.private_subnets[1]

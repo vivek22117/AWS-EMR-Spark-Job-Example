@@ -6,8 +6,6 @@
       "spark.executor.instances": "${num_exec_instances}",
       "spark.memory.fraction": "${spark_mem_frac}",
       "spark.memory.storageFraction": "${spark_storage_mem_frac}",
-      "spark.executor.extraJavaOptions": "${exec_java_opts}",
-      "spark.driver.extraJavaOptions": "${driver_java_opts}",
       "spark.storage.level": "${spark_storage_level}",
       "spark.rdd.compress": "${compression_enabled}",
       "spark.shuffle.compress": "${compression_enabled}",

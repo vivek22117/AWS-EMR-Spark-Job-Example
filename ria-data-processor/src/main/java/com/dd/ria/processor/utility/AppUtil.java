@@ -61,8 +61,7 @@ public class AppUtil implements Serializable {
     }
 
     public static Dataset<Row> readData(SparkSession sparkSession, String path) {
-        Dataset<Row> dataset = sparkSession.read()
-                .format("org.apache.spark.sql.execution.datasources.csv.CSVFileFormat")
+        Dataset<Row> dataset = sparkSession.sqlContext().read()
                 .option("inferSchema", "true")
                 .option("header", "true")
                 .option("delimiter", "|")
