@@ -10,8 +10,9 @@
       "spark.rdd.compress": "${compression_enabled}",
       "spark.shuffle.compress": "${compression_enabled}",
       "spark.shuffle.spill.compress": "${compression_enabled}",
+      "spark.sql.analyzer.failAmbiguousSelfJoin": "false",
       "spark.sql.optimizer.distinctBeforeIntersect.enabled" : "${distinct_enabled}",
-      "spark.sql.dynamicPartitionPruning.enabled" : "${dynamic_partition_enabled}"
+      "spark.sql.optimizer.dynamicPartitionPruning.enabled" : "${dynamic_partition_enabled}"
     }
   },
   {
@@ -30,7 +31,8 @@
       "spark.default.parallelism": "${spark_parallelism}",
       "spark.yarn.driver.memoryOverhead": "${yarn_driver_memory_overhead}",
       "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version": "2",
-      "spark.speculation": "false"
+      "spark.speculation": "false",
+      "spark.sql.analyzer.failAmbiguousSelfJoin": "false"
     }
   },
   {
