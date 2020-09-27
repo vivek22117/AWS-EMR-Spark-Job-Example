@@ -61,33 +61,6 @@ data "template_file" "security_configuration" {
   }
 }
 
-data "template_file" "configuration" {
-  template = file("${path.module}/scripts/config.json.tpl")
-
-  vars = {
-    enable_dynamic_allocation = var.enable_dynamic_allocation
-    num_exec_instances        = var.num_exec_instances
-    spark_mem_frac            = var.spark_mem_frac
-    spark_storage_mem_frac    = var.spark_storage_mem_frac
-    exec_java_opts            = var.exec_java_opts
-    driver_java_opts          = var.driver_java_opts
-    spark_storage_level       = var.spark_storage_level
-    compression_enabled       = var.compression_enabled
-    distinct_enabled          = var.distinct_enabled
-    dynamic_partition_enabled = var.dynamic_partition_enabled
-
-    enable_max_resource_alloc   = var.enable_max_resource_alloc
-    enable_dynamic_alloc        = var.enable_dynamic_alloc
-    spark_shuffle_partitions    = var.spark_shuffle_partitions
-    yarn_exec_memory_overhead   = var.yarn_exec_memory_overhead
-    spark_parallelism           = var.spark_parallelism
-    yarn_driver_memory_overhead = var.yarn_driver_memory_overhead
-
-    environment = var.environment
-
-    enable_s3_sse = var.enable_s3_sse
-  }
-}
 
 data "template_file" "emr_steps" {
   template = file("${path.module}/scripts/steps.json.tpl")
