@@ -94,7 +94,7 @@ public class RIARecordProcessor {
         esDataset.repartition(1)
                 .write()
                 .format("json")
-                .save("s3a://" + s3Bucket + "/processed-data");
+                .save("s3a://doubledigit-datalake-qa-us-east-1/rsvp/processed-data-by-s3");
     }
 
     private static Dataset<Row> populateStudiesData(SparkSession sparkSession, String s3Bucket) {

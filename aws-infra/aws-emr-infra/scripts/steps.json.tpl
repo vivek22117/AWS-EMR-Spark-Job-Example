@@ -54,7 +54,7 @@
           "--src",
           "hdfs:///temp/data/output/processed-data",
           "--dest",
-          "s3://doubledigit-tfstate-deploy/rsvp/processed-data",
+          "s3://doubledigit-datalake-qa-us-east-1/rsvp/processed-data",
           "--targetSize",
           "1024",
           "--s3ServerSideEncryption",
