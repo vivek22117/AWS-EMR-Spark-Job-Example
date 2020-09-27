@@ -28,12 +28,13 @@ public class RIARecordProcessor {
 
         try {
 //            System.out.println(Runtime.getRuntime().availableProcessors());
+            logger.debug("S3 Bucket Name: " + S3_BUCKET);
             sparkSession = SharedSparkSession.createSession("RIA-Record-Processor", sparkConfigMap);
             sparkSession.sparkContext().setLogLevel("ERROR");
 
             SQLContext sqlContext = sparkSession.sqlContext();
 
-            createBroadCastForCommonData(sparkSession, combiner, S3_BUCKET);
+            createBroadCastForCommonData(sparkSession, combiner, "doubledigit-aritifactory-qa-us-east-1");
 
             String concatedS3Key = S3_KEY_PREFIX.concat("splittedS3Key");
 
@@ -63,19 +64,19 @@ public class RIARecordProcessor {
         Dataset<Row> nameFieldDataset = combiner.processInterventionsData(sparkSession, nctIdDataset, s3Bucket);
 
 
-        Dataset<Row> mergedStudiesDataset = meshFiledDataset.join(nameFieldDataset,
+        Dataset<Row> combinedDataset = meshFiledDataset.join(nameFieldDataset,
                 meshFiledDataset.col("nct_id").equalTo(nameFieldDataset.col("nct_id")), "fullouter")
                 .drop(nameFieldDataset.col("nct_id"));
 
         nctIdDataset.unpersist();
 
-        Dataset<Row> finalDataset = studiesDataset.join(mergedStudiesDataset,
-                studiesDataset.col("nct_id").equalTo(mergedStudiesDataset.col("nct_id")), "fullouter")
-                .drop(mergedStudiesDataset.col("nct_id"));
+        Dataset<Row> finalDataset = studiesDataset.join(combinedDataset,
+                studiesDataset.col("nct_id").equalTo(combinedDataset.col("nct_id")), "fullouter")
+                .drop(combinedDataset.col("nct_id"));
 
         meshFiledDataset.unpersist();
         nameFieldDataset.unpersist();
-        mergedStudiesDataset.unpersist();
+        combinedDataset.unpersist();
         Dataset<Row> esDataset = finalDataset.join(datasetOfOtherFields,
                 finalDataset.col("nct_id").equalTo(datasetOfOtherFields.col("nct_id")), "fullouter")
                 .drop(datasetOfOtherFields.col("nct_id"))
