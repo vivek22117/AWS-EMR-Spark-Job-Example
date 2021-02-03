@@ -24,8 +24,10 @@ resource "aws_emr_security_configuration" "security_configuration" {
 
 resource "aws_emr_cluster" "cluster" {
   name          = "${var.cluster_name}-${var.environment}"
+
   release_label = var.emr_release
   applications  = ["Spark", "Zeppelin", "Hadoop", "Ganglia"]
+
   log_uri       = "s3://${data.terraform_remote_state.backend.outputs.dataLake_bucket_name}/emr/rsvp/logs/"
 
   termination_protection            = false
