@@ -182,6 +182,7 @@ public class Combiner implements Serializable {
                 .write()
                 .format("json")
                 .save("hdfs:///temp" + SEPARATOR + "data/output/other-fields");
+        //Intermediate dataset which we are going to re-use.
 //                .save("data/output/other-fields");
     }
 
