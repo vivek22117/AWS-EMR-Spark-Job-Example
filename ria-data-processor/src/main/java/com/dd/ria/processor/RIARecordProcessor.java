@@ -19,6 +19,7 @@ public class RIARecordProcessor {
     private static Logger logger = Logger.getLogger(RIARecordProcessor.class);
 
     private static final String S3_BUCKET = PropertyLoader.getInstance().getPropertyValue("S3.BUCKET.NAME");
+    private static final String DATALAKE_S3_BUCKET = "doubledigit-datalake-qa-us-east-1";
     private static final Map<String, String> sparkConfigMap = PropertyLoader.getInstance().getSparkConfig(AppUtil.SPARK_CONF_PATH);
     private static final String S3_KEY_PREFIX = "s3a:";
 
@@ -27,7 +28,7 @@ public class RIARecordProcessor {
         Combiner combiner = new Combiner();
 
         try {
-//            System.out.println(Runtime.getRuntime().availableProcessors());
+            System.out.println(Runtime.getRuntime().availableProcessors());
             logger.debug("S3 Bucket Name: " + S3_BUCKET);
             sparkSession = SharedSparkSession.createSession("RIA-Record-Processor", sparkConfigMap);
             sparkSession.sparkContext().setLogLevel("ERROR");
@@ -55,6 +56,7 @@ public class RIARecordProcessor {
     private static void createBroadCastForCommonData(SparkSession sparkSession, Combiner combiner, String s3Bucket) {
 
         Dataset<Row> studiesDataset = populateStudiesData(sparkSession, s3Bucket);
+
         Dataset<Row> nctIdDataset = studiesDataset.select(col("nct_id"));
         combiner.populateOtherFields(sparkSession, nctIdDataset, s3Bucket);
 
@@ -77,6 +79,7 @@ public class RIARecordProcessor {
         meshFiledDataset.unpersist();
         nameFieldDataset.unpersist();
         combinedDataset.unpersist();
+
         Dataset<Row> esDataset = finalDataset.join(datasetOfOtherFields,
                 finalDataset.col("nct_id").equalTo(datasetOfOtherFields.col("nct_id")), "fullouter")
                 .drop(datasetOfOtherFields.col("nct_id"))
@@ -94,7 +97,7 @@ public class RIARecordProcessor {
         esDataset.repartition(1)
                 .write()
                 .format("json")
-                .save("s3a://doubledigit-datalake-qa-us-east-1/rsvp/processed-data-by-s3");
+                .save("s3a://" + DATALAKE_S3_BUCKET  + "/rsvp/processed-data-by-s3");
     }
 
     private static Dataset<Row> populateStudiesData(SparkSession sparkSession, String s3Bucket) {
