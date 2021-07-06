@@ -1,36 +1,55 @@
+####################################################
+#          AWS provider configuration              #
+####################################################
 provider "aws" {
-  region  = var.default_region // Interpolation Syntax
-  profile = var.profile
+  region = var.default_region
 
-  version = ">=2.22.0" // AWS plugin version
+  version = ">=2.28.0"
 }
 
-provider "template" {
-  version = "2.1.2"
-}
 
-provider "null" {
-  version = "2.1.2"
-}
-
-provider "random" {
-  version = "2.1.2"
-}
-
-#############################################################
-# Terraform configuration block is used to define backend   #
-# Interpolation sytanx is not allowed in Backend            #
-#############################################################
+###########################################################
+# Terraform configuration block is used to define backend #
+# Interpolation syntax is not allowed in Backend          #
+###########################################################
 terraform {
-  required_version = ">= 0.12"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">=3.3.0"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 1.3"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 2.0"
+    }
+    template = {
+      source  = "hashicorp/template"
+      version = "~> 2.1"
+    }
+    archive = {
+      source  = "hashicorp/archive"
+      version = "2.2.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.0.0"
+    }
+  }
+  required_version = ">= 0.13"
 
-//  backend "s3" {
-//    profile        = "admin"
-//    bucket         = "doubledigit-tfstate-qa-us-east-1"
-//    dynamodb_table = "doubledigit-tfstate-qa-us-east-1"
-//    key            = "state/qa/emr/rsvp-spark-aggregator/terraform.tfstate"
-//    region         = "us-east-1"
-//    encrypt        = "true"
-//  }
+
+  backend "s3" {
+    //    profile = "qa-admin"
+    region  = "us-east-1"
+    encrypt = "true"
+  }
+
 }
+
+# used for accessing Account ID and ARN
+data "aws_caller_identity" "current" {}
 
