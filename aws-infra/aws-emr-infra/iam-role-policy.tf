@@ -1,6 +1,6 @@
 ###=================EMR IAM Resources=====================###
 resource "aws_iam_role" "emr_rsvp_processor_service_role" {
-  name = "RSVPProcessorEMRSerivceRole"
+  name = "RSVPProcessorEMRServiceRole"
   path = "/"
 
   assume_role_policy = <<EOF
